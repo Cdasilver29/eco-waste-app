@@ -1,0 +1,61 @@
+{
+  "expo": {
+    "name": "EcoWaste",
+    "slug": "eco-waste",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#10b981"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.ecowasteapp",
+      "infoPlist": {
+        "NSCameraUsageDescription": "This app needs camera access to scan waste items",
+        "NSPhotoLibraryUsageDescription": "This app needs photo library access to upload waste images",
+        "NSLocationWhenInUseUsageDescription": "This app needs your location to find nearby facilities"
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#10b981"
+      },
+      "package": "com.ecowasteapp",
+      "permissions": [
+        "CAMERA",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE",
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION"
+      ]
+    },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Allow EcoWaste to access your photos to upload waste images"
+        }
+      ],
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow EcoWaste to use your camera to scan waste items"
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow EcoWaste to use your location to find nearby facilities"
+        }
+      ]
+    ]
+  }
+}

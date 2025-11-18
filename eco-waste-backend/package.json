@@ -1,0 +1,47 @@
+{
+  "name": "eco-waste-backend",
+  "version": "1.0.0",
+  "description": "Sustainable Waste Management API",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "test": "echo \"Tests coming soon\""
+  },
+  "keywords": [
+    "waste",
+    "sustainability",
+    "recycling"
+  ],
+  "author": "Calvine Dasilver Mugunda",
+  "license": "MIT",
+  "type": "commonjs",
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.931.0",
+    "axios": "^1.13.2",
+    "bcryptjs": "^3.0.3",
+    "cloudinary": "^2.8.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "express-mongo-sanitize": "^2.2.0",
+    "express-rate-limit": "^8.2.1",
+    "geolib": "^3.3.4",
+    "helmet": "^8.1.0",
+    "hpp": "^0.2.3",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.19.3",
+    "morgan": "^1.10.1",
+    "multer": "^2.0.2",
+    "openai": "^6.9.0",
+    "sharp": "^0.34.5",
+    "slugify": "^1.6.6",
+    "socket.io": "^4.8.1",
+    "socket.io-client": "^4.8.1",
+    "uuid": "^13.0.0",
+    "xss-clean": "^0.1.4"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
+  }
+}
