@@ -4,7 +4,6 @@ const cors = require('cors');
 const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const http = require('http');
-const path = require('path');
 const connectDB = require('./config/database');
 const validateEnvironment = require('./utils/validateEnv');
 const { initializeSocket } = require('./sockets');
@@ -15,13 +14,13 @@ validateEnvironment();
 const app = express();
 const server = http.createServer(app);
 
-// ===== WebSocket ===== //
+// WebSocket
 initializeSocket(server);
 
-// ===== Connect DB ===== //
+// DB
 connectDB();
 
-// ===== Security ===== //
+// Security
 app.use(
   helmet({
     contentSecurityPolicy: false,
@@ -31,7 +30,7 @@ app.use(
   })
 );
 
-// ===== CORS Middleware ===== //
+// CORS
 const allowedOrigins = process.env.ALLOWED_ORIGINS
   ? process.env.ALLOWED_ORIGINS.split(',')
   : ['http://localhost:3000', 'http://localhost:5173'];
@@ -49,7 +48,7 @@ app.use(
   })
 );
 
-// ===== Safe pre-flight ===== //
+// Pre-flight support
 app.use((req, res, next) => {
   if (req.method === 'OPTIONS') {
     res.header('Access-Control-Allow-Origin', allowedOrigins.join(','));
@@ -60,11 +59,11 @@ app.use((req, res, next) => {
   next();
 });
 
-// ===== Request Parsing ===== //
+// Parsing
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
-// ===== Sanitize ===== //
+// Sanitize
 app.use((req, res, next) => {
   try {
     if (req.body) mongoSanitize.sanitize(req.body);
@@ -75,7 +74,7 @@ app.use((req, res, next) => {
   next();
 });
 
-// ===== Health Check ===== //
+// Health check
 app.get('/health', (req, res) => {
   res.json({
     status: 'ok',
@@ -84,7 +83,7 @@ app.get('/health', (req, res) => {
   });
 });
 
-// ===== API Routes ===== //
+// API Routes
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/municipalities', require('./routes/municipalities'));
 app.use('/api/schedules', require('./routes/schedules'));
@@ -94,21 +93,17 @@ app.use('/api/image', imageLimiter, require('./routes/image'));
 app.use('/api/maps', require('./routes/maps'));
 app.use('/api/routes', require('./routes/routes'));
 
-// ===== Serve React/Vite Frontend ===== //
-const frontendPath = path.join(__dirname, '..', 'client', 'build'); // adjust path if needed
-app.use(express.static(frontendPath));
-
-// Catch-all for SPA routes (non-API)
-app.get(/^(?!\/api).*/, (req, res) => {
-  res.sendFile(path.join(frontendPath, 'index.html'));
+// Root route (API only, no frontend)
+app.get('/', (req, res) => {
+  res.send('EcoWaste API is running');
 });
 
-// ===== 404 for unmatched API routes (regex-safe) ===== //
+// 404 for unmatched API routes
 app.all(/^\/api\/.*$/, (req, res) => {
   res.status(404).json({ error: 'API route not found' });
 });
 
-// ===== Error Handler ===== //
+// Error handler
 app.use((err, req, res, next) => {
   console.error('Error:', err);
   res.status(err.status || 500).json({
@@ -119,7 +114,7 @@ app.use((err, req, res, next) => {
   });
 });
 
-// ===== Start Server ===== //
+// Start server
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
@@ -128,6 +123,7 @@ server.listen(PORT, () => {
 });
 
 module.exports = app;
+
 
 
 
