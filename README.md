@@ -12,7 +12,7 @@
 [![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-47A248?logo=mongodb&logoColor=white)](https://www.mongodb.com/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 
-[Live Demo](https://eco-waste-frontend.vercel.app) • [API Docs](https://eco-waste-backend.onrender.com/api-docs) • [Report Bug](https://github.com/yourusername/eco-waste-app/issues) • [Request Feature](https://github.com/yourusername/eco-waste-app/discussions)
+[Live Demo](https://eco-waste-app.vercel.app/) • [API Docs](https://eco-waste-app.onrender.com/api-docs) • [Report Bug](https://github.com/Cdasilver29/eco-waste-app/issues) • [Request Feature](https://github.com/Cdasilver29/eco-waste-app/discussions)
 
 </div>
 
@@ -37,6 +37,11 @@
 - [Acknowledgments](#-acknowledgments)
 
 ---
+### Inspiration
+- [UN Sustainable Development Goals](https://sdgs.un.org/goals) - SDG 11: Sustainable Cities
+- [World Bank Waste Management](https://www.worldbank.org/en/topic/urbandevelopment/brief/solid-waste-management) - Research and data
+- [Ellen MacArthur Foundation](https://ellenmacarthurfoundation.org) - Circular economy principles
+
 
 ## 🎯 Overview
 
@@ -1143,15 +1148,11 @@ We're grateful to the following organizations and open-source projects:
 - [Tailwind CSS](https://tailwindcss.com) - Styling framework
 
 ### Community
-- All our amazing [contributors](https://github.com/yourusername/eco-waste-app/graphs/contributors)
+- All our amazing [contributors](https://github.com/Cdasilver29/eco-waste-app/graphs/contributors)
 - Beta testers and early adopters
 - Municipal partners in Nairobi, Mombasa, and Kisumu
 - Environmental organizations supporting our mission
 
-### Inspiration
-- [UN Sustainable Development Goals](https://sdgs.un.org/goals) - SDG 11: Sustainable Cities
-- [World Bank Waste Management](https://www.worldbank.org/en/topic/urbandevelopment/brief/solid-waste-management) - Research and data
-- [Ellen MacArthur Foundation](https://ellenmacarthurfoundation.org) - Circular economy principles
 
 ---
 
