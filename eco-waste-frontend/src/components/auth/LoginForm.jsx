@@ -1,31 +1,41 @@
-// src/components/auth/LoginForm.jsx
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Lock, Eye, EyeOff, Leaf } from 'lucide-react';
+import { Mail, Lock, Eye, EyeOff, Leaf, User, Building } from 'lucide-react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { login } from '../../store/slices/authSlice';
 
-export const LoginForm = ({ onSubmit, onSwitchToRegister }) => {
+const LoginForm = ({ onSwitchToRegister }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { loading } = useSelector((state) => state.auth);
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
+  const [userRole, setUserRole] = useState('citizen'); // 'citizen' or 'manufacturer'
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors({});
-    
+
     if (!email || !password) {
       setErrors({ general: 'Please fill in all fields' });
       return;
     }
 
-    setLoading(true);
     try {
-      await onSubmit({ email, password });
+      const result = await dispatch(login({ email, password, role: userRole })).unwrap();
+
+      // Save user in localStorage
+      localStorage.setItem('user', JSON.stringify(result.user));
+
+      toast.success(`Welcome back, ${result.user.firstName || result.user.companyName || 'User'}!`);
+      navigate('/dashboard');
     } catch (error) {
-      setErrors({ general: error.message });
-    } finally {
-      setLoading(false);
+      setErrors({ general: error.message || 'Invalid email or password' });
     }
   };
 
@@ -62,6 +72,42 @@ export const LoginForm = ({ onSubmit, onSwitchToRegister }) => {
                 {errors.general}
               </motion.div>
             )}
+
+            {/* Role Selection */}
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-3">
+                I am a...
+              </label>
+              <div className="grid grid-cols-2 gap-3">
+                {[
+                  { id: 'citizen', label: 'Citizen', icon: User, description: 'Log waste & earn tokens' },
+                  { id: 'manufacturer', label: 'Manufacturer', icon: Building, description: 'Source materials' }
+                ].map((role) => (
+                  <motion.button
+                    key={role.id}
+                    type="button"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => setUserRole(role.id)}
+                    className={`p-4 rounded-xl border-2 transition-all text-left ${
+                      userRole === role.id
+                        ? 'border-emerald-500 bg-emerald-50 shadow-lg'
+                        : 'border-slate-200 hover:border-slate-300'
+                    }`}
+                  >
+                    <role.icon className={`w-6 h-6 mb-2 ${
+                      userRole === role.id ? 'text-emerald-600' : 'text-slate-400'
+                    }`} />
+                    <div className={`font-semibold text-sm ${
+                      userRole === role.id ? 'text-emerald-700' : 'text-slate-600'
+                    }`}>
+                      {role.label}
+                    </div>
+                    <div className="text-xs text-slate-500 mt-1">{role.description}</div>
+                  </motion.button>
+                ))}
+              </div>
+            </div>
 
             {/* Email */}
             <div>
@@ -123,7 +169,7 @@ export const LoginForm = ({ onSubmit, onSwitchToRegister }) => {
               whileTap={{ scale: 0.98 }}
               className="w-full py-3 bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-xl font-semibold hover:shadow-lg transition-all disabled:opacity-50"
             >
-              {loading ? 'Signing in...' : 'Sign In'}
+              {loading ? 'Signing in...' : 'Sign In as ' + (userRole === 'citizen' ? 'Citizen' : 'Manufacturer')}
             </motion.button>
 
             {/* Switch to Register */}

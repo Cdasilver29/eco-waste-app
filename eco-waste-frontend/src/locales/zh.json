@@ -1,0 +1,16 @@
+{
+  "nav": {
+    "howItWorks": "如何运作",
+    "wasteCategories": "废物类别",
+    "forManufacturers": "制造商专区",
+    "testimonials": "用户评价",
+    "login": "登录",
+    "startEarning": "开始赚钱"
+  },
+  "hero": {
+    "badge": "每公斤赚取高达 KSh 50 • 将代币兑换成现金",
+    "title": "将您的废物",
+    "titleHighlight": "变成真金白银",
+    "description": "AI驱动的废物分类。实时制造商匹配。实时跟踪收集卡车。每回收一公斤即可获得代币。即时转换至M-Pesa。加入50,000多名肯尼亚人，在拯救地球的同时赚钱。"
+  }
+}

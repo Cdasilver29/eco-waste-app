@@ -1,67 +1,32 @@
-// src/hooks/useAuth.js
-import { useState, useEffect } from 'react';
+// src/hooks/useAuth.js (Updated)
 import { useDispatch, useSelector } from 'react-redux';
-import { authService } from '../services/authService';
-import { setUser, clearUser, setLoading } from '../store/authSlice';
+import { login as loginThunk, register as registerThunk, fetchUser, logout as logoutSlice, updateUser } from '../store/slices/authSlice';
+import { authAPI } from '../services/api';
 
 export const useAuth = () => {
   const dispatch = useDispatch();
-  const { user, isAuthenticated, loading } = useSelector(state => state.auth);
-
-  useEffect(() => {
-    const checkAuth = async () => {
-      const token = localStorage.getItem('token');
-      if (token) {
-        try {
-          dispatch(setLoading(true));
-          const userData = await authService.getCurrentUser();
-          dispatch(setUser(userData));
-        } catch (error) {
-          console.error('Auth check failed:', error);
-          localStorage.removeItem('token');
-          dispatch(clearUser());
-        } finally {
-          dispatch(setLoading(false));
-        }
-      }
-    };
-
-    checkAuth();
-  }, [dispatch]);
+  const { user, token, loading } = useSelector(state => state.auth);
+  const isAuthenticated = !!token && !!user;
 
   const login = async (credentials) => {
-    try {
-      const response = await authService.login(credentials);
-      dispatch(setUser(response.user));
-      return response;
-    } catch (error) {
-      throw error;
-    }
+    const result = await dispatch(loginThunk(credentials));
+    return result.payload;
   };
 
   const register = async (userData) => {
-    try {
-      const response = await authService.register(userData);
-      dispatch(setUser(response.user));
-      return response;
-    } catch (error) {
-      throw error;
-    }
+    const result = await dispatch(registerThunk(userData));
+    return result.payload;
   };
 
   const logout = () => {
-    authService.logout();
-    dispatch(clearUser());
+    dispatch(logoutSlice()); // Uses Redux action
   };
 
   const updateProfile = async (data) => {
-    try {
-      const response = await authService.updateProfile(data);
-      dispatch(setUser(response.user));
-      return response;
-    } catch (error) {
-      throw error;
-    }
+    // Assuming you add this to authAPI
+    const response = await authAPI.updateProfile(data);
+    dispatch(updateUser(response.data.user));
+    return response.data;
   };
 
   return {

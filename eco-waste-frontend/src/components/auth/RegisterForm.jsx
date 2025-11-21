@@ -1,12 +1,19 @@
-// src/components/auth/RegisterForm.jsx
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { Leaf, User, Building, Eye, EyeOff } from 'lucide-react';
+
 export const RegisterForm = ({ onSubmit, onSwitchToLogin }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     password: '',
     confirmPassword: '',
-    municipality: ''
+    municipality: '',
+    role: 'citizen', // Added role
+    companyName: '' // Added for manufacturers
   });
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
 
@@ -27,6 +34,9 @@ export const RegisterForm = ({ onSubmit, onSwitchToLogin }) => {
     if (formData.password.length < 8) newErrors.password = 'Password must be at least 8 characters';
     if (formData.password !== formData.confirmPassword) newErrors.confirmPassword = 'Passwords do not match';
     if (!formData.municipality) newErrors.municipality = 'Please select a municipality';
+    if (formData.role === 'manufacturer' && !formData.companyName) {
+      newErrors.companyName = 'Company name is required for manufacturers';
+    }
     
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -76,34 +86,96 @@ export const RegisterForm = ({ onSubmit, onSwitchToLogin }) => {
               </div>
             )}
 
+            {/* Role Selection */}
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-2">Full Name</label>
+              <label className="block text-sm font-medium text-slate-700 mb-3">
+                I want to join as a...
+              </label>
+              <div className="grid grid-cols-2 gap-3">
+                {[
+                  { id: 'citizen', label: 'Citizen', icon: User, description: 'Log waste & earn tokens' },
+                  { id: 'manufacturer', label: 'Manufacturer', icon: Building, description: 'Source materials' }
+                ].map((role) => (
+                  <motion.button
+                    key={role.id}
+                    type="button"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => handleChange('role', role.id)}
+                    className={`p-4 rounded-xl border-2 transition-all text-left ${
+                      formData.role === role.id
+                        ? 'border-emerald-500 bg-emerald-50 shadow-lg'
+                        : 'border-slate-200 hover:border-slate-300'
+                    }`}
+                  >
+                    <role.icon className={`w-5 h-5 mb-2 ${
+                      formData.role === role.id ? 'text-emerald-600' : 'text-slate-400'
+                    }`} />
+                    <div className={`font-semibold text-sm ${
+                      formData.role === role.id ? 'text-emerald-700' : 'text-slate-600'
+                    }`}>
+                      {role.label}
+                    </div>
+                    <div className="text-xs text-slate-500 mt-1">{role.description}</div>
+                  </motion.button>
+                ))}
+              </div>
+            </div>
+
+            {/* Name */}
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-2">
+                {formData.role === 'citizen' ? 'Full Name' : 'Contact Person Name'}
+              </label>
               <input
                 type="text"
                 value={formData.name}
                 onChange={(e) => handleChange('name', e.target.value)}
-                className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                placeholder={formData.role === 'citizen' ? 'John Doe' : 'Your full name'}
+                className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all"
               />
               {errors.name && <p className="mt-1 text-sm text-red-600">{errors.name}</p>}
             </div>
 
+            {/* Company Name (Manufacturer only) */}
+            {formData.role === 'manufacturer' && (
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-2">
+                  Company Name
+                </label>
+                <input
+                  type="text"
+                  value={formData.companyName}
+                  onChange={(e) => handleChange('companyName', e.target.value)}
+                  placeholder="Your company name"
+                  className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all"
+                />
+                {errors.companyName && <p className="mt-1 text-sm text-red-600">{errors.companyName}</p>}
+              </div>
+            )}
+
+            {/* Email */}
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-2">Email</label>
               <input
                 type="email"
                 value={formData.email}
                 onChange={(e) => handleChange('email', e.target.value)}
-                className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                placeholder="your@email.com"
+                className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all"
               />
               {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email}</p>}
             </div>
 
+            {/* Municipality */}
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-2">Municipality</label>
+              <label className="block text-sm font-medium text-slate-700 mb-2">
+                {formData.role === 'citizen' ? 'Municipality' : 'Business Location'}
+              </label>
               <select
                 value={formData.municipality}
                 onChange={(e) => handleChange('municipality', e.target.value)}
-                className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all"
               >
                 <option value="">Select your city</option>
                 {municipalities.map(city => (
@@ -113,25 +185,47 @@ export const RegisterForm = ({ onSubmit, onSwitchToLogin }) => {
               {errors.municipality && <p className="mt-1 text-sm text-red-600">{errors.municipality}</p>}
             </div>
 
+            {/* Password */}
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-2">Password</label>
-              <input
-                type="password"
-                value={formData.password}
-                onChange={(e) => handleChange('password', e.target.value)}
-                className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500"
-              />
+              <div className="relative">
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  value={formData.password}
+                  onChange={(e) => handleChange('password', e.target.value)}
+                  placeholder="••••••••"
+                  className="w-full pl-4 pr-12 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                >
+                  {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                </button>
+              </div>
               {errors.password && <p className="mt-1 text-sm text-red-600">{errors.password}</p>}
             </div>
 
+            {/* Confirm Password */}
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-2">Confirm Password</label>
-              <input
-                type="password"
-                value={formData.confirmPassword}
-                onChange={(e) => handleChange('confirmPassword', e.target.value)}
-                className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500"
-              />
+              <div className="relative">
+                <input
+                  type={showConfirmPassword ? 'text' : 'password'}
+                  value={formData.confirmPassword}
+                  onChange={(e) => handleChange('confirmPassword', e.target.value)}
+                  placeholder="••••••••"
+                  className="w-full pl-4 pr-12 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                >
+                  {showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                </button>
+              </div>
               {errors.confirmPassword && <p className="mt-1 text-sm text-red-600">{errors.confirmPassword}</p>}
             </div>
 
@@ -142,7 +236,7 @@ export const RegisterForm = ({ onSubmit, onSwitchToLogin }) => {
               whileTap={{ scale: 0.98 }}
               className="w-full py-3 bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-xl font-semibold hover:shadow-lg transition-all disabled:opacity-50 mt-6"
             >
-              {loading ? 'Creating Account...' : 'Create Account'}
+              {loading ? 'Creating Account...' : `Join as ${formData.role === 'citizen' ? 'Citizen' : 'Manufacturer'}`}
             </motion.button>
 
             <div className="text-center text-sm text-slate-600">

@@ -1,0 +1,16 @@
+{
+  "nav": {
+    "howItWorks": "Comment ça marche",
+    "wasteCategories": "Catégories de déchets",
+    "forManufacturers": "Pour les fabricants",
+    "testimonials": "Témoignages",
+    "login": "Connexion",
+    "startEarning": "Commencer à gagner"
+  },
+  "hero": {
+    "badge": "Gagnez jusqu'à KSh 50 par Kg • Convertissez les jetons en espèces",
+    "title": "Transformez vos déchets",
+    "titleHighlight": "En argent réel",
+    "description": "Classification des déchets par IA. Appariement des fabricants en temps réel. Suivez les camions en direct. Gagnez des jetons pour chaque kg recyclé. Convertissez en M-Pesa instantanément. Rejoignez 50 000+ Kenyans qui gagnent tout en sauvant la planète."
+  }
+}

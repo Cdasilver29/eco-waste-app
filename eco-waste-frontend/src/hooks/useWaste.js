@@ -1,8 +1,8 @@
 // src/hooks/useWaste.js
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { wasteService } from '../services/wasteService';
-import { setWasteLogs, addWasteLog, setStats } from '../store/wasteSlice';
+import { wasteAPI, imageAPI } from '../services/api';
+import { addWasteLog, setWasteLogs, setStats } from '../store/slices/wasteSlice';
 
 export const useWaste = () => {
   const dispatch = useDispatch();
@@ -12,11 +12,11 @@ export const useWaste = () => {
   const logWaste = async (wasteData) => {
     try {
       setError(null);
-      const response = await wasteService.logWaste(wasteData);
-      dispatch(addWasteLog(response.wasteLog));
-      return response;
+      const { data } = await wasteAPI.logWaste(wasteData);
+      dispatch(addWasteLog(data?.wasteLog || data));
+      return data;
     } catch (err) {
-      setError(err.message);
+      setError(err.response?.data?.message || err.message);
       throw err;
     }
   };
@@ -24,11 +24,11 @@ export const useWaste = () => {
   const fetchHistory = async (params = {}) => {
     try {
       setError(null);
-      const response = await wasteService.getHistory(params);
-      dispatch(setWasteLogs(response.logs));
-      return response;
+      const { data } = await wasteAPI.getHistory(params);
+      dispatch(setWasteLogs(data?.logs || data));
+      return data;
     } catch (err) {
-      setError(err.message);
+      setError(err.response?.data?.message || err.message);
       throw err;
     }
   };
@@ -36,22 +36,22 @@ export const useWaste = () => {
   const fetchStats = async () => {
     try {
       setError(null);
-      const response = await wasteService.getStats();
-      dispatch(setStats(response.stats));
-      return response;
+      const { data } = await wasteAPI.getStats();
+      dispatch(setStats(data?.stats || data));
+      return data;
     } catch (err) {
-      setError(err.message);
+      setError(err.response?.data?.message || err.message);
       throw err;
     }
   };
 
-  const classifyImage = async (image) => {
+  const classifyImage = async (formData) => {
     try {
       setError(null);
-      const response = await wasteService.classifyImage(image);
-      return response;
+      const { data } = await imageAPI.classify(formData);
+      return data;
     } catch (err) {
-      setError(err.message);
+      setError(err.response?.data?.message || err.message);
       throw err;
     }
   };

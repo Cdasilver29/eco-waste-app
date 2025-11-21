@@ -1,0 +1,67 @@
+{
+  "nav": {
+    "howItWorks": "How It Works",
+    "wasteCategories": "Waste Categories",
+    "forManufacturers": "For Manufacturers",
+    "testimonials": "Testimonials",
+    "login": "Login",
+    "startEarning": "Start Earning"
+  },
+  "hero": {
+    "badge": "Earn Up to KSh 50 per Kg • Convert Tokens to Cash",
+    "title": "Turn Your Waste",
+    "titleHighlight": "Into Real Money",
+    "description": "AI-powered waste classification. Real-time manufacturer matching. Track collection trucks live. Earn tokens for every kg recycled. Convert to M-Pesa instantly. Join 50,000+ Kenyans earning while saving the planet.",
+    "ctaStart": "Start Earning Tokens",
+    "ctaWatch": "See How It Works (2 min)",
+    "noFees": "No signup fees",
+    "instantPayouts": "Instant M-Pesa payouts",
+    "aiVerification": "AI waste verification"
+  },
+  "stats": {
+    "activeRecyclers": "Active Recyclers",
+    "kgRecycled": "Kg Recycled",
+    "manufacturers": "Manufacturers",
+    "tokensEarned": "Tokens Earned",
+    "earningDaily": "Earning tokens daily",
+    "last30Days": "Last 30 days",
+    "connectedToSupply": "Connected to supply",
+    "paidToRecyclers": "Paid to recyclers"
+  },
+  "howItWorks": {
+    "title": "How EcoWaste Works",
+    "subtitle": "From waste to wealth in 5 simple steps. Start earning today.",
+    "step1Title": "Snap & Classify",
+    "step1Desc": "Take a photo of your waste. Our AI identifies the type (plastic, paper, metal, organic) and tells you its value.",
+    "step2Title": "Find Collection Point",
+    "step2Desc": "See nearby drop-off points or schedule a pickup. Real-time map shows collection trucks and their routes.",
+    "step3Title": "Drop Off or Get Picked Up",
+    "step3Desc": "Drop waste at designated points or wait for the collection truck. Track the truck in real-time on your phone.",
+    "step4Title": "Manufacturer Connection",
+    "step4Desc": "Your waste is routed to manufacturers who need it. Plastic → Plastic manufacturers, Paper → Paper mills, etc.",
+    "step5Title": "Earn Token Rewards",
+    "step5Desc": "Get tokens based on waste type and weight. 1 kg plastic = 50 tokens. Convert to cash via M-Pesa or bank transfer."
+  },
+  "categories": {
+    "title": "Waste Categories & Token Values",
+    "subtitle": "Know what your waste is worth. AI identifies the category, we show you the value.",
+    "plastic": "Plastic",
+    "paper": "Paper",
+    "metal": "Metal",
+    "glass": "Glass",
+    "eWaste": "E-Waste",
+    "organic": "Organic",
+    "tokensPerKg": "tokens/kg",
+    "buyers": "Buyers",
+    "highDemand": "High demand"
+  },
+  "cta": {
+    "title": "Ready to Turn Waste Into Wealth?",
+    "subtitle": "Join 50,000+ Kenyans earning an average of KSh 5,000/month. Start today - no signup fees.",
+    "startNow": "Start Earning Now",
+    "alreadyMember": "Already a member? Login",
+    "freeForever": "Free forever",
+    "noHiddenFees": "No hidden fees",
+    "instantPayouts": "Instant payouts"
+  }
+}

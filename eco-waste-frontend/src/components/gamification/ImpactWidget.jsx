@@ -1,4 +1,7 @@
-/ src/components/gamification/ImpactWidget.jsx
+//src/components/gamification/ImpactWidget.jsx
+import React from 'react';
+import { motion } from 'framer-motion';
+import { Users, Recycle, Leaf } from 'lucide-react';
 export const ImpactWidget = ({ impact = {} }) => {
   const metrics = [
     {

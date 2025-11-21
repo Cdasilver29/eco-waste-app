@@ -16,7 +16,17 @@ const chatSlice = createSlice({
       state.sessionId = action.payload;
     },
     addMessage: (state, action) => {
-      state.messages.push(action.payload);
+      const msg = action.payload;
+
+      // force timestamp to be serializable
+      const safeMessage = {
+        ...msg,
+        timestamp: typeof msg.timestamp === 'string' || typeof msg.timestamp === 'number'
+          ? msg.timestamp
+          : Date.now(),
+      };
+
+      state.messages.push(safeMessage);
     },
     clearMessages: (state) => {
       state.messages = [];

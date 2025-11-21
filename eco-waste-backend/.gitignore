@@ -1,17 +1,27 @@
 # Node modules
-node_modules/
+/node_modules/
 
-# Environment
+# Logs & runtime data
+/logs/
+/*.log
+/pids/
+/*.pid
+
+# Env files
 .env
+.env.local
+.env.*.local
 
-# Logs
-logs/
-*.log
+# Build output (if using Babel/TypeScript)
+dist/
+build/
 
-# OS files
+# OS & Editor
 .DS_Store
 Thumbs.db
+.vscode/
+.idea/
 
-# Build artifacts
-dist/
-coverage/
+# Cache
+*.cache
+

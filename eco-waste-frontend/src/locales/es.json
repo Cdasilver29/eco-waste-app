@@ -1,0 +1,16 @@
+{
+  "nav": {
+    "howItWorks": "Cómo funciona",
+    "wasteCategories": "Categorías de residuos",
+    "forManufacturers": "Para fabricantes",
+    "testimonials": "Testimonios",
+    "login": "Iniciar sesión",
+    "startEarning": "Empezar a ganar"
+  },
+  "hero": {
+    "badge": "Gana hasta KSh 50 por Kg • Convierte tokens en efectivo",
+    "title": "Convierte tus residuos",
+    "titleHighlight": "En dinero real",
+    "description": "Clasificación de residuos con IA. Emparejamiento de fabricantes en tiempo real. Rastrea camiones en vivo. Gana tokens por cada kg reciclado. Convierte a M-Pesa al instante. Únete a más de 50,000 kenianos que ganan mientras salvan el planeta."
+  }
+}

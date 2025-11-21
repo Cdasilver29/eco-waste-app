@@ -1,3 +1,4 @@
+//src/components/layout/Header.jsx
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Menu, Bell, User, LogOut, Settings } from 'lucide-react';
