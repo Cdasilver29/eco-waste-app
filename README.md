@@ -1,6 +1,7 @@
 # 🌱 EcoWaste Management System
 
-<div align="center">
+
+![EcoWaste Logo](eco-waste-frontend/public/apple-touch-icon.png)
 
 ![EcoWaste Logo](https://img.shields.io/badge/EcoWaste-Sustainable_Future-00D084?style=for-the-badge&logo=recycle&logoColor=white)
 
